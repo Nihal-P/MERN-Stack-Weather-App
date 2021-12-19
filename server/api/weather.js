@@ -1,4 +1,5 @@
 //weather class to connect with the weather api and be able to get weather data to send back to frontend later
+const WEATHER = require("../models/Weather")
 const axios = require("axios");
 
 // Configuring the path to read the environment varibale file, .env, to get the weather api key
@@ -27,6 +28,48 @@ class Weather {
          // Awaitable call to get the information from the weather api and then return the data.
          // TODO: Add error handling for this call
          return (await axios(url)).data;
+    }
+
+    /**
+     * Saves the weather data using the zipcode as the unique identifier
+     * If it already exists, replace, if not, then add.
+     * 
+     * @param {number} zipCode 
+     * @param {string} data Weather data to save/update
+     * @return {JSON} data response from the weather api data.
+     */
+    saveWeatherDataToMongo = async (zipCode, data) => {
+        const filter = {
+            zip: zipCode
+        }
+
+        const replace  = {
+            ...filter,
+            ...data,
+            data: Date.now()
+        }
+
+        await this.findOneReplace(filter, replace);
+    }
+
+
+    /**
+     * Svaes Weather data to MongoDB
+     * @param {number} zipCode 
+     * @returns {JSON} data from mongodb
+     */    
+    getWeatherDataFromMongo = async (zipCode) => {
+        return WEATHER.findOne({zip: zipCode});
+    }
+
+    /**
+     * helper method
+     * checking if already exists, if it does than replace not add. 
+     * @param {{zip:number}} filter the filter is the zipCode used as id to find document
+     * @return {JSON} Data response from mDB 
+     */
+    async findOneReplace(filter, replace) {
+        await WEATHER.findOneAndReplace(filter, replace, {new: true, upsert: true});
     }
 
 }
