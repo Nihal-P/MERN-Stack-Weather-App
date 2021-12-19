@@ -1,9 +1,9 @@
 //weather class to connect with the weather api and be able to get weather data to send back to frontend later
-const WEATHER = require("../models/Weather")
+const WEATHER = require("../models/Weather");
 const axios = require("axios");
 
 // Configuring the path to read the environment varibale file, .env, to get the weather api key
-require('dotenv').config({path: "./../../.env"});
+require('dotenv').config({path: "./../../../.env"});
 
 const baseUrl = "http://api.openweathermap.org/data/2.5/weather";
 

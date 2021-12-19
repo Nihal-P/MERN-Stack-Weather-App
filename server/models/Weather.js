@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const WeatherScehma = new mongoose.Schema({
+const WeatherSchema = new mongoose.Schema({
     zip: Number,
     coord: {
         lon: Number,
@@ -50,4 +50,4 @@ const WeatherScehma = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Weather', WeatherScehma);
+module.exports = mongoose.model('Weather', WeatherSchema);
