@@ -8,7 +8,7 @@ class WeatherForm extends Component {
         tempMetric: "imperial",
         zipCodeInput: "98052"
     }
-    ///START => To save to LocalStorage
+
     componentDidMount() {
         this.refreshSavedWeather();
     }
@@ -49,24 +49,10 @@ class WeatherForm extends Component {
         localStorage.setItem("tempMetric", this.state.tempMetric);
         localStorage.setItem("CurrentWeatherData", JSON.stringify(weatherData));
     }
-    //END=To save to local storage
-
-    // To save to mongoDB
-    saveToMongo = (event) => {
-        axios.post("/api/weatherMongo", {
-            zipCode: this.state.zipCodeInput,
-            tempMetric: this.state.tempMetric
-        }).then(response => {
-            let weatherData = response.data;
-
-            
-        });
-    }
 
     render() {
         return (
-            // <Form className="weather-form" onSubmit={this.saveFormData} > //to save to local storage change on Sumbit
-            <Form className="weather-form" onSubmit={this.saveToMongo} > {/* currently saving set to mongoDB */}
+            <Form className="weather-form" onSubmit={this.saveFormData}>
 
                 <Row type="flex" justify="center" align="center" className="zipCode">
                     <Col>
