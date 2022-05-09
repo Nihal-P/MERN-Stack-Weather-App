@@ -1,6 +1,6 @@
 # MERN-Stack-Weather-App
 
-A weather website to view weather of any city by name or zipcode. 
+A weather website to view weather of any city by name or zipcode.
 
 ## Description
 
